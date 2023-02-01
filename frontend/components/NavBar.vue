@@ -18,7 +18,7 @@
             </button>
         </section>
         <section  class=" mt-7  md:space-x-7 space-x-2 sm:hidden block ">
-            <button @click="toggle" class=" rounded-xl border-[1px] border-transparent  hover:text-black/50 active:text-black/80">
+            <button @click="toggleOn" class=" rounded-xl border-[1px] border-transparent  hover:text-black/50 active:text-black/80">
                 <Icon name="material-symbols:menu-rounded"  class="w-8 h-8"  />
 
             </button>
@@ -26,7 +26,7 @@
         </section>
     </container>
     <section :class="[!btn ? 'sidebar' : 'closeside']">
-      <button v-if=!btn @click="toggle" class=" flex justify-start rounded-xl border-[1px] border-transparent  hover:text-black/50 active:text-black/80">
+      <button v-if=!btn @click="toggleOff" class=" flex justify-start rounded-xl border-[1px] border-transparent  hover:text-black/50 active:text-black/80">
                 <Icon name="material-symbols:menu-open-rounded"  class="w-8 h-8"  />
 
             </button>
@@ -58,12 +58,21 @@ export default {
     }
   },
   methods: {
-    toggle() {
-      this.btn = !this.btn;
+    toggleOn() {
+      this.btn = false;
+      window.onscroll = function () { window.scrollTo(0, 0); };
+
+    },
+    toggleOff() {
+      this.btn = true;
+      window.onscroll = function () { };
+
     }
   },
  
 }
+
+
 </script>
 <style scoped>
 .sidebar{
@@ -71,11 +80,12 @@ export default {
   top:0;
   right: 0;
   position: fixed;
-  overflow-x: hidden;
+  overflow-x: auto;
   transition: ease 500ms;
-  background-color: #3f9989;
-  height: 100vh;
+  background-color: #212c2a;
+  height: 100%;
   display: flex;
+  z-index: 1;
   flex-direction: column;
   animation: show 500ms 1;
   width: 100vw;
